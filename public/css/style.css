@@ -157,9 +157,9 @@ a:active {
 }
 .sec-title span {
   color: #21aa47;
-  font-family: 'Playfair Display', serif;
+  /* font-family: 'Playfair Display', serif; */
   font-weight: bold;
-  font-style: italic;
+  /* font-style: italic; */
   background: -webkit-gradient(linear, left top, right top, from(#f80503), to(#ff7d09));
   background: #21aa47;
   -webkit-background-clip: text;
@@ -1808,7 +1808,7 @@ footer.site-footer .footer-widget.subscribe-widget form.subscribe-form button {
   right: 0;
   width: 98px;
   height: 51px;
-  background: #21aa47;
+  background: #0473ea;
   color: #fff;
   font-size: 14px;
 }
@@ -2739,7 +2739,7 @@ footer.site-footer .bottom-footer p {
   font-weight: 500;
 }
 .testimonials-style-three .single-testimonials-style-three .text-box .client-name span {
-  color: #21aa47;
+  color: #0473ea;
 }
 .testimonials-style-three .single-testimonials-style-three .text-box:after {
   content: '';
@@ -3359,9 +3359,9 @@ footer.site-footer .bottom-footer p {
 }
 .contact-info-style-one .title h3 span {
   color: #21aa47;
-  font-family: 'Playfair Display', serif;
+  /* font-family: 'Playfair Display', serif; */
   font-weight: bold;
-  font-style: italic;
+  /* font-style: italic; */
   background: -webkit-gradient(linear, left top, right top, from(#f80503), to(#ff7d09));
   background: #21aa47;
   -webkit-background-clip: text;
@@ -4552,7 +4552,7 @@ footer.site-footer .bottom-footer p {
 .single-service-style-four .img-box .box .content a.more {
   width: 121px;
   height: 38px;
-  background: #21aa47;
+  background: #0473ea;
   color: #fff;
   font-size: 16px;
   font-family: 'Poppins';
@@ -4870,7 +4870,7 @@ footer.site-footer .bottom-footer p {
 }
 .about-style-two .about-content h3 span {
   color: #21aa47;
-  font-family: 'Playfair Display', serif;
+  /* font-family: 'Playfair Display', serif; */
   font-weight: bold;
   /* font-style: italic; */
   background: -webkit-gradient(linear, left top, right top, from(#f80503), to(#ff7d09));
@@ -4939,7 +4939,7 @@ footer.site-footer .bottom-footer p {
 }
 .about-style-two .about-content a.view-more {
   color: #fff;
-  background: #21aa47;
+  background: #0473ea;
   font-size: 16px;
   font-family: 'Poppins';
   font-weight: 600;

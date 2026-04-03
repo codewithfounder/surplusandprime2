@@ -4,10 +4,24 @@ import {useNavigate} from 'react-router-dom';
 function Details({ productId }) {
     const navigate = useNavigate();
 
-    const isLoggedIn = localStorage.getItem("token");
+    // const isLoggedIn = localStorage.getItem("token");
+    const user = localStorage.getItem('user');
+    const isLoggedIn = JSON.parse(user).login;
 
     const handleEnquiryClick = () => {
         if (isLoggedIn) {
+
+            const existingProducts = JSON.parse(localStorage.getItem("enquiryProduct")) || [];
+
+            const alreadyExists = existingProducts.find(
+                (item) => item.id === product.id
+            );
+
+            if (!alreadyExists) {
+                existingProducts.push(product);
+                localStorage.setItem("enquiryProduct", JSON.stringify(existingProducts));
+            }
+
             navigate(`/enquiry/${product.id}`);
         } else {
             navigate("/login", {
@@ -185,7 +199,7 @@ function Details({ productId }) {
             </div>
 
             {/* STYLES */}
-            <style jsx>{`
+            <style jsx="true">{`
         .detail-box {
           background: #fff;
           padding: 20px;

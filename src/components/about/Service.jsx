@@ -6,22 +6,22 @@ import "slick-carousel/slick/slick-theme.css";
 function Service() {
   const services = [
     {
-      img: "images/service-3-1.jpg",
+      img: "images/service-1.png",
       icon: "industrio-icon-gas-station-1",
-      title1: "Fuel & Gas",
-      title2: "Management",
+      title1: "Oil & Gas",
+      title2: "Products",
     },
     {
       img: "images/service-3-2.jpg",
       icon: "industrio-icon-flasks",
       title1: "Chemical",
-      title2: "Research",
+      title2: "Products",
     },
     {
-      img: "images/service-3-3.jpg",
+      img: "images/service-3.png",
       icon: "industrio-icon-atomic",
-      title1: "Echo & Bio",
-      title2: "Power",
+      title1: "Heavy Equipments",
+      title2: "Products",
     },
   ];
 
@@ -85,7 +85,7 @@ function Service() {
                         {service.title2}
                       </h3>
                       <a href="#" className="more hvr-sweep-to-right">
-                        Learn more
+                        Shop Now
                       </a>
                     </div>
                   </div>

@@ -9,6 +9,7 @@ import ProductDetails from './pages/ProductDetails';
 import Category from './pages/Category';
 import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
+import Dashboard from './components/users/Dashboard';
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
     <Routes>
       <Route path='/login' element={<Login/>}/>
       <Route path='/register' element={<Register/>}/>
+      <Route path="/dashboard" element={<Dashboard />} />
       <Route path='/enquiry/:productId' element={<h1>Enquiry page</h1>}/>
       <Route path='/' element={<Home/>}/>
       <Route path='/about' element={<About/>}/>

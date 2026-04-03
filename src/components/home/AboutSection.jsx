@@ -7,8 +7,8 @@ function AboutSection(){
                 <div className="row">
                     <div className="col-md-7">
                         <div className="about-content">
-                            <h3>Welcome to <span>Surplus & Prime World</span></h3>
-                            <p className="tag-line"><span>Surplus & Prime World</span> highlights the production of goods and related services, representing progress and value within a modern economy.</p>
+                            <h3>Welcome to <span>Surplus & Prime Worldwide</span></h3>
+                            <p className="tag-line"><span>Surplus & Prime Worldwide</span> highlights the production of goods and related services, representing progress and value within a modern economy.</p>
                             <p>Manufacturing and trading industries play a vital role in the global economy, connecting suppliers and buyers while enabling businesses to efficiently exchange surplus equipment, materials, and industrial resources worldwide.</p>
                             <div className="quote-box">
                                 <img src="images/quote.png" alt="Awesome Image"/>
@@ -33,7 +33,7 @@ function AboutSection(){
           <section className="service-title">
             <div className="container">
                 <div className="sec-title light text-center">
-                    <h3><span>Surplus & Prime World</span> provides the best products for sustainable progress.</h3>
+                    <h3><span>Surplus & Prime Worldwide</span> provides the best products for sustainable progress.</h3>
                 </div>
             </div>
         </section>

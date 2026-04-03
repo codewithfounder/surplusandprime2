@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import BasicDetails from "../../components/auth/register/BasicDetails";
 import EmailVerification from "../../components/auth/register/EmailVerification";
 import ContactInfo from "../../components/auth/register/ContactInfo";
@@ -8,6 +9,8 @@ import "./style.css";
 const Register = () => {
     const [step, setStep] = useState(1);
     const [errors, setErrors] = useState({});
+
+    const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
         fullName: "",
@@ -96,8 +99,24 @@ const Register = () => {
 
     const handleSubmit = () => {
         if (!validateStep()) return;
-        console.log("Final Data:", formData);
+
+        // ✅ Generate unique ID
+        const userId = Date.now(); // simple unique id
+
+        const userData = {
+            ...formData,
+            id: userId,
+            login: true,
+        };
+
+        console.log("Final Data:", userData);
+
+        // ✅ Save user
+        localStorage.setItem("user", JSON.stringify(userData));
+
         alert("Account Created Successfully!");
+
+        navigate("/dashboard");
     };
 
     // Send OTP

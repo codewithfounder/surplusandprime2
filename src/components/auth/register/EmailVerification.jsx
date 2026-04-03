@@ -48,7 +48,7 @@ const EmailVerification = ({ formData, setFormData, errors, handleSendOTP }) => 
       {errors.otp && <p className="error-text">{errors.otp}</p>}
 
       <button type="button" onClick={handleSendOTP}>
-        Next
+        Send OTP
       </button>
     </div>
   );

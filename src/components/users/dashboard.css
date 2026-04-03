@@ -1,0 +1,268 @@
+/* Layout */
+.dashboard-layout {
+  display: flex;
+  min-height: 90vh;
+}
+
+/* Sidebar */
+.dashboard-sidebar {
+  width: 240px;
+  background: #ffffff;
+  color: #e2e8f0;
+  padding: 20px;
+  transition: transform 0.3s ease;
+  box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+}
+
+.dashboard-sidebar h3 {
+  margin-bottom: 25px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #555555;
+}
+
+/* Sidebar Items */
+.dashboard-sidebar li {
+  padding: 12px 14px;
+  cursor: pointer;
+  color: #555555;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  transition: 0.25s;
+  font-size: 15px;
+}
+
+.dashboard-sidebar li:hover {
+  background: rgba(255,255,255,0.08);
+}
+
+.dashboard-active {
+  background: #3b82f6;
+  color: rgb(235, 235, 235) !important;
+  font-weight: 500;
+}
+
+/* Content */
+.dashboard-content {
+  flex: 1;
+  padding: 30px;
+}
+
+.dashboard-content h1 {
+  font-size: 26px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+/* Card Box */
+.dashboard-content-box {
+  margin-top: 20px;
+  padding: 25px;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+  border: none;
+}
+
+/* Profile Text */
+.dashboard-content-box p {
+  margin: 8px 0;
+  font-size: 15px;
+}
+
+/* Form */
+.dashboard-form-group {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard-form-group label {
+  font-size: 13px;
+  margin-bottom: 5px;
+  color: #475569;
+}
+
+.dashboard-form-group input {
+  padding: 10px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  outline: none;
+  transition: 0.2s;
+}
+
+.dashboard-form-group input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59,130,246,0.2);
+}
+
+/* Buttons */
+.dashboard-edit-btn,
+.dashboard-save-btn,
+.dashboard-cancel-btn {
+  margin-top: 12px;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+.dashboard-edit-btn {
+  background: #3b82f6;
+  color: white;
+}
+
+.dashboard-edit-btn:hover {
+  background: #2563eb;
+}
+
+.dashboard-save-btn {
+  background: #22c55e;
+  color: white;
+}
+
+.dashboard-save-btn:hover {
+  background: #16a34a;
+}
+
+.dashboard-cancel-btn {
+  background: #ef4444;
+  color: white;
+}
+
+.dashboard-cancel-btn:hover {
+  background: #dc2626;
+}
+
+.dashboard-edit-actions {
+  display: flex;
+  gap: 10px;
+}
+
+/* Logout */
+.dashboard-logout-btn {
+  margin-top: 30px;
+  padding: 12px;
+  width: 100%;
+  background: #ef4444;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  text-align: center;
+  transition: 0.2s;
+}
+
+.dashboard-logout-btn:hover {
+  background: #dc2626;
+}
+
+/* Mobile header */
+.dashboard-mobile-header {
+  display: none;
+  padding: 12px 15px;
+  background: #0f172a;
+  color: white;
+  align-items: center;
+  gap: 10px;
+}
+
+.dashboard-menu-btn {
+  font-size: 22px;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.dashboard-close-btn {
+  display: none;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 18px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+/* Overlay */
+.dashboard-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  z-index: 5;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .dashboard-mobile-header { display: flex; }
+
+  .dashboard-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    z-index: 10;
+    transform: translateX(-100%);
+  }
+
+  .dashboard-sidebar.dashboard-open {
+    transform: translateX(0);
+  }
+
+  .dashboard-close-btn {
+    display: block;
+  }
+
+  .dashboard-layout {
+    flex-direction: column;
+  }
+
+  .dashboard-content {
+    padding: 20px;
+  }
+}
+
+/* card */
+.user-product-card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.user-product-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 1rem;
+}
+
+.user-product-card img{
+  width: 10rem;
+  height: 10rem;
+}
+
+.user-product-card:hover {
+  transform: translateY(-5px);
+}
+
+.user-product-card h3 {
+  margin-bottom: 10px;
+}
+
+.user-product-card p {
+  font-size: 14px;
+  color: #555;
+}

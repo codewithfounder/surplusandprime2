@@ -54,7 +54,7 @@ function Service() {
                         href="#"
                         className="more hvr-sweep-to-right"
                       >
-                        Learn more
+                        Shop Now
                       </a>
 
                     </div>

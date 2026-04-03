@@ -19,7 +19,7 @@ const slides = [
   },
   {
     img: "images/h3.png",
-    align: "text-right",
+    align: "text-center",
     title: "We will provide the best",
     highlight: "Products",
     desc: "We are the best guarenteed company to serve you. We are dedicated to help you any time."

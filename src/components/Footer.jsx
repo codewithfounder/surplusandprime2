@@ -35,8 +35,7 @@ function Footer() {
               <div className="footer-widget about-widget">
 
                 <a href="index.html" className="footer-logo-content" style={{display: 'flex', justifyContent: 'center', alignItems: "center"}}>
-                  <img src="images/logo1.png" alt="Logo" />
-                  <h3 style={{color:'#21aa47', margin: 0}}>Surplus and Prime WorldWide FZ LLC. <br/><span >GREENER TOMORROW</span></h3>
+                  <img src="images/surplus.png" alt="Logo" style={{width: '31rem'}}/>
                 </a>
 
                 <h3>About us</h3>

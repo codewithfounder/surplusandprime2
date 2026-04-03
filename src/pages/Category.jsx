@@ -9,7 +9,7 @@ function Category(){
     return(
         <>
         <Navbar logo="../images/surplus.png"/>
-        <Banner title="Products"/>
+        <Banner title="Categories"/>
          <SubCategory categoryId={category_Id}/>
           <Contact_info/>
         <Footer/>

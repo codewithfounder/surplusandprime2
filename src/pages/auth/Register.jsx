@@ -25,7 +25,6 @@ const Register = () => {
         // Contact Info fields
         entityType: "company",
         industry: "",
-        // company: "",
         address: "",
         city: "",
         zip: "",
@@ -36,7 +35,7 @@ const Register = () => {
         website: "",
 
         categories: [],
-        region: "",
+        region: [], // ✅ FIXED (was "")
     });
 
     const steps = [
@@ -53,7 +52,7 @@ const Register = () => {
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
-        setErrors({ ...errors, [name]: "" }); // remove error on typing
+        setErrors({ ...errors, [name]: "" });
     };
 
     const handleCheckbox = (e) => {
@@ -61,11 +60,15 @@ const Register = () => {
         let updated = [...formData.categories];
         if (checked) updated.push(value);
         else updated = updated.filter((item) => item !== value);
+
         setFormData({ ...formData, categories: updated });
-        if (updated.length > 0) setErrors({ ...errors, categories: "" });
+
+        if (updated.length > 0) {
+            setErrors({ ...errors, categories: "" });
+        }
     };
 
-    // Validate current step
+    // ✅ Validate current step
     const validateStep = () => {
         let newErrors = {};
 
@@ -75,14 +78,16 @@ const Register = () => {
             if (!formData.email.trim()) newErrors.email = "Email is required";
             if (!formData.password.trim()) newErrors.password = "Password is required";
             if (!formData.confirmPassword.trim()) newErrors.confirmPassword = "Confirm Password is required";
-            else if (formData.password !== formData.confirmPassword) newErrors.confirmPassword = "Passwords do not match";
+            else if (formData.password !== formData.confirmPassword)
+                newErrors.confirmPassword = "Passwords do not match";
         }
 
-        if (step === 2 && !formData.otp.trim()) newErrors.otp = "OTP is required";
+        if (step === 2 && !formData.otp.trim()) {
+            newErrors.otp = "OTP is required";
+        }
 
         if (step === 3) {
             if (!formData.industry) newErrors.industry = "Industry is required";
-            // if (!formData.company.trim()) newErrors.company = "Company is required";
             if (!formData.address.trim()) newErrors.address = "Address is required";
             if (!formData.city.trim()) newErrors.city = "City is required";
             if (!formData.zip.trim()) newErrors.zip = "Zip Code is required";
@@ -90,9 +95,14 @@ const Register = () => {
             if (!formData.state) newErrors.state = "State is required";
         }
 
-        if (step === 4 && formData.categories.length === 0) newErrors.categories = "Select at least one category";
+        if (step === 4 && formData.categories.length === 0) {
+            newErrors.categories = "Select at least one category";
+        }
 
-        if (step === 5 && !formData.region) newErrors.region = "Select a region";
+        // ✅ FIXED validation for array
+        if (step === 5 && formData.region.length === 0) {
+            newErrors.region = "Select at least one region";
+        }
 
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
@@ -101,8 +111,7 @@ const Register = () => {
     const handleSubmit = () => {
         if (!validateStep()) return;
 
-        // ✅ Generate unique ID
-        const userId = Date.now(); // simple unique id
+        const userId = Date.now();
 
         const userData = {
             ...formData,
@@ -112,7 +121,6 @@ const Register = () => {
 
         console.log("Final Data:", userData);
 
-        // ✅ Save user
         localStorage.setItem("user", JSON.stringify(userData));
 
         alert("Account Created Successfully!");
@@ -126,7 +134,7 @@ const Register = () => {
             setErrors({ ...errors, email: "Enter email first" });
             return;
         }
-        // Call backend API to send OTP
+
         console.log("OTP sent to:", formData.email);
         alert(`OTP sent to ${formData.email}`);
     };
@@ -134,13 +142,18 @@ const Register = () => {
     return (
         <div className="container1">
             <div>
-                <p className="top-cont">Global Marketplace for Asset Recovery & Surplus Inventory</p>
+                <p className="top-cont">
+                    Global Marketplace for Asset Recovery & Surplus Inventory
+                </p>
             </div>
 
             {/* Stepper */}
             <div className="stepper">
                 {steps.map((label, index) => (
-                    <div key={index} className={`step ${step === index + 1 ? "active" : ""}`}>
+                    <div
+                        key={index}
+                        className={`step ${step === index + 1 ? "active" : ""}`}
+                    >
                         {index + 1}. {label}
                     </div>
                 ))}
@@ -148,13 +161,6 @@ const Register = () => {
 
             {/* Step Content */}
             <div className="form-box">
-                {/* {step === 1 && (
-                    <BasicDetails
-                        formData={formData}
-                        handleChange={handleChange}
-                        errors={errors}
-                    />
-                )} */}
                 {step === 1 && (
                     <BasicDetails
                         formData={formData}
@@ -194,23 +200,38 @@ const Register = () => {
                 )}
 
                 {step === 5 && (
-                    <div className="rigions" style={{display:'flex', flexDirection:'column', justifyContent:'center', alignItems: 'center', margin: '5rem 0'}}>
+                    <div
+                        className="rigions"
+                        style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            margin: "5rem 0",
+                        }}
+                    >
                         <label>Enter Regions (comma separated)</label>
 
                         <input
                             type="text"
                             placeholder="e.g. India, USA, Europe"
-                            value={formData.region.join(", ")}
+                            value={
+                                Array.isArray(formData.region)
+                                    ? formData.region.join(", ")
+                                    : ""
+                            }
                             onChange={(e) => {
                                 const value = e.target.value;
 
-                                // Convert comma-separated string → array
                                 const regionsArray = value
                                     .split(",")
                                     .map((r) => r.trim())
                                     .filter((r) => r !== "");
 
-                                setFormData({ ...formData, region: regionsArray });
+                                setFormData({
+                                    ...formData,
+                                    region: regionsArray,
+                                });
 
                                 if (regionsArray.length > 0) {
                                     setErrors({ ...errors, region: "" });
@@ -219,7 +240,9 @@ const Register = () => {
                             className={errors.region ? "error" : ""}
                         />
 
-                        {errors.region && <p className="error-text">{errors.region}</p>}
+                        {errors.region && (
+                            <p className="error-text">{errors.region}</p>
+                        )}
                     </div>
                 )}
             </div>

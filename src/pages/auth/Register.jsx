@@ -14,7 +14,8 @@ const Register = () => {
 
     const [formData, setFormData] = useState({
         fullName: "",
-        memberType: "Both Seller & Buyer",
+        memberType: "Buyer",
+        countryCode: "",
         mobile: "",
         email: "",
         password: "",
@@ -24,7 +25,7 @@ const Register = () => {
         // Contact Info fields
         entityType: "company",
         industry: "",
-        company: "",
+        // company: "",
         address: "",
         city: "",
         zip: "",
@@ -81,7 +82,7 @@ const Register = () => {
 
         if (step === 3) {
             if (!formData.industry) newErrors.industry = "Industry is required";
-            if (!formData.company.trim()) newErrors.company = "Company is required";
+            // if (!formData.company.trim()) newErrors.company = "Company is required";
             if (!formData.address.trim()) newErrors.address = "Address is required";
             if (!formData.city.trim()) newErrors.city = "City is required";
             if (!formData.zip.trim()) newErrors.zip = "Zip Code is required";
@@ -131,9 +132,9 @@ const Register = () => {
     };
 
     return (
-        <div className="container">
+        <div className="container1">
             <div>
-                <p>$5.2B Global Marketplace for Asset Recovery & Surplus Inventory</p>
+                <p className="top-cont">Global Marketplace for Asset Recovery & Surplus Inventory</p>
             </div>
 
             {/* Stepper */}
@@ -147,11 +148,21 @@ const Register = () => {
 
             {/* Step Content */}
             <div className="form-box">
+                {/* {step === 1 && (
+                    <BasicDetails
+                        formData={formData}
+                        handleChange={handleChange}
+                        errors={errors}
+                    />
+                )} */}
                 {step === 1 && (
                     <BasicDetails
                         formData={formData}
                         handleChange={handleChange}
                         errors={errors}
+                        setErrors={setErrors}
+                        handleSubmitFinal={nextStep}
+                        setFormData={setFormData}
                     />
                 )}
 
@@ -168,6 +179,7 @@ const Register = () => {
                 {step === 3 && (
                     <ContactInfo
                         formData={formData}
+                        setFormData={setFormData}
                         handleChange={handleChange}
                         errors={errors}
                     />
@@ -182,19 +194,33 @@ const Register = () => {
                 )}
 
                 {step === 5 && (
-                    <>
-                        <select
-                            name="region"
-                            value={formData.region}
-                            onChange={handleChange}
+                    <div className="rigions" style={{display:'flex', flexDirection:'column', justifyContent:'center', alignItems: 'center', margin: '5rem 0'}}>
+                        <label>Enter Regions (comma separated)</label>
+
+                        <input
+                            type="text"
+                            placeholder="e.g. India, USA, Europe"
+                            value={formData.region.join(", ")}
+                            onChange={(e) => {
+                                const value = e.target.value;
+
+                                // Convert comma-separated string → array
+                                const regionsArray = value
+                                    .split(",")
+                                    .map((r) => r.trim())
+                                    .filter((r) => r !== "");
+
+                                setFormData({ ...formData, region: regionsArray });
+
+                                if (regionsArray.length > 0) {
+                                    setErrors({ ...errors, region: "" });
+                                }
+                            }}
                             className={errors.region ? "error" : ""}
-                        >
-                            <option value="">Select Region</option>
-                            <option value="USA">USA</option>
-                            <option value="India">India</option>
-                        </select>
+                        />
+
                         {errors.region && <p className="error-text">{errors.region}</p>}
-                    </>
+                    </div>
                 )}
             </div>
 

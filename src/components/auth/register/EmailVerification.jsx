@@ -26,7 +26,7 @@ const EmailVerification = ({ formData, setFormData, errors, handleSendOTP }) => 
 
   return (
     <div className="email-verification">
-      <p>
+      <p className="text-center">
         Enter the OTP sent to <strong>{formData.email || "your email"}</strong>
       </p>
 

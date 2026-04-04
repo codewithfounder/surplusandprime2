@@ -1,19 +1,25 @@
 import React, { useState } from "react";
 
 const Categories = ({ formData, setFormData, errors }) => {
-    const [openGroup, setOpenGroup] = useState(null);
+    const [openGroup, setOpenGroup] = useState(0);
 
     const categoriesData = [
         {
-            name: "Agriculture and Food",
-            items: ["Apples", "Bakery", "Bananas", "Barley"]
-        },
-        {
-            name: "Electronics",
-            items: ["Mobiles", "Laptops", "Cameras"]
+            name: "Industry",
+            items: [
+                "Chemical & Petrochemicals",
+                "Commercial Equipment",
+                "Computer & Peripherals",
+                "Electrical Utilities & Downstream",
+                "Marine",
+                "Oil & Gas",
+                "Solar",
+                "Transportation/Vehicles/Mobile Assets",
+                "Heavy Equipment",
+                "Building Materials"
+            ]
         }
     ];
-
     // Toggle individual item
     const handleItemChange = (item, group) => {
         let updated = [...formData.categories];

@@ -42,8 +42,42 @@
   height: auto;
 }
 
+.rigions input{
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: 'Rubik', Arial, sans-serif;
+  background: #fff;
+  height: auto;
+}
+.rigions input:focus{
+  outline: none;
+  border-color: #21aa47;
+  box-shadow: none;
+}
+
 .basic-details .form-group input:focus,
 .basic-details .form-group select:focus {
+  outline: none;
+  border-color: #21aa47;
+  box-shadow: none;
+}
+
+/* Contact info  */
+.contact-info-container .form-group input,
+.contact-info-container .form-group select{
+   padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: 'Rubik', Arial, sans-serif;
+  background: #fff;
+  /* width: 100%; */
+  height: auto;
+}
+.contact-info-container .form-group input:focus,
+.contact-info-container .form-group select:focus {
   outline: none;
   border-color: #21aa47;
   box-shadow: none;

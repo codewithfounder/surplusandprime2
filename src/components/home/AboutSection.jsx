@@ -5,7 +5,7 @@ function AboutSection(){
         <section className="about-style-two sec-pad pt0">
             <div className="container">
                 <div className="row">
-                    <div className="col-md-7">
+                    <div className="col-md-7" style={{padding: '15px'}}>
                         <div className="about-content">
                             <h3>Welcome to <span>Surplus & Prime Worldwide</span></h3>
                             <p className="tag-line"><span>Surplus & Prime Worldwide</span> highlights the production of goods and related services, representing progress and value within a modern economy.</p>

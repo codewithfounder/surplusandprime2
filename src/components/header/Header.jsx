@@ -31,20 +31,10 @@ function Header({ logo }) {
                     <span><i className="fa fa-envelope"></i> Email: info@surplusandprime.com</span>
                     <span><i className="fa fa-clock"></i> Working Hours: Monday to Saturday - 9:00 AM to 5PM</span>
                 </div>
-
-                {/* <div className="topbar-right">
-                    <a href="#">Careers</a>
-                    <a href="#">FAQs</a>
-                    <div className="social-icons">
-                        <i className="fab fa-facebook-f"></i>
-                        <i className="fab fa-twitter"></i>
-                        <i className="fab fa-youtube"></i>
-                    </div>
-                </div> */}
             </div>
 
             {/* 🔷 NAVBAR */}
-            <div className="navbar" style={{ zIndex: '1' }}>
+            <div className="navbar">
                 <div className="logo">
                     <img src={logo} alt="logo" />
                 </div>
@@ -105,7 +95,7 @@ function Header({ logo }) {
 
                 {/* Desktop Right */}
                 <div className="nav-right desktop-only">
-                    <i className="fa fa-search search-icon"></i>
+                    {/* <i className="fa fa-search search-icon"></i> */}
 
                     {loggedIn ? (
                         <Link to="/dashboard">

@@ -123,14 +123,14 @@ function Footer() {
       <div className="bottom-footer">
         <div className="container">
 
-          <div className="left-text pull-left">
-            <p>© Copyright Surplus and Prime WorldWide FZ LLC.
+          <div className="left-text pull-left col-xs-12">
+            <p className="text-center">© Copyright Surplus and Prime WorldWide FZ LLC.
 GREENER TOMORROW 2026. All right reserved.</p>
           </div>
 
-          <div className="right-text pull-right">
+          {/* <div className="right-text pull-right">
             <p>Created by Surplus and Prime World</p>
-          </div>
+          </div> */}
 
         </div>
       </div>

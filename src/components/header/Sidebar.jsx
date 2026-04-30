@@ -1,11 +1,23 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 function Sidebar({ isOpen, closeSidebar }) {
     const [openMenu, setOpenMenu] = useState(null);
+    const [categories, setCategories] = useState([]);
 
     const toggleMenu = (menu) => {
         setOpenMenu(openMenu === menu ? null : menu);
     };
+
+    useEffect(() => {
+        fetch(`${BASE_URL}/category/get_cat`)
+            .then((res) => res.json())
+            .then((data) => {
+                if (data.status) {
+                    setCategories(data.data);
+                }
+            })
+            .catch((err) => console.error("Category API Error:", err));
+    }, []);
 
     return (
         <>
@@ -64,16 +76,17 @@ function Sidebar({ isOpen, closeSidebar }) {
                                     className="sub-menu"
                                     style={{ display: openMenu === "category" ? "block" : "none" }}
                                 >
-                                    <li> <a href="single-service.html">Chemical & Petrochemicals</a> </li>
-                                    <li><a href="single-service.html">Commercial Equipment</a></li>
-                                    <li><a href="single-service.html">Computer & Peripherals</a></li>
-                                    <li><a href="single-service.html">Electrical Utilities & Downstream</a></li>
-                                    <li><a href="single-service.html">Marine</a></li>
-                                    <li><a href="single-service.html">Oil & Gas</a></li>
-                                    <li><a href="single-service.html">Solar</a></li>
-                                    <li><a href="single-service.html">Transportation/Vehicles/Mobile Assets</a></li>
-                                    <li><a href="single-service.html">Heavy Equipment</a></li>
-                                    <li><a href="single-service.html">Building Materials</a></li>
+                                    {categories.length > 0 ? (
+                                categories.map((cat) => (
+                                    <li key={cat.id}>
+                                        <Link to={`/category/${cat.id}`}>
+                                            {cat.name}
+                                        </Link>
+                                    </li>
+                                ))
+                            ) : (
+                                <li>No categories</li>
+                            )}
                                 </ul>
                             </li>
 

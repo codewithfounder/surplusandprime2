@@ -1,4 +1,4 @@
-
+import { Link } from "react-router-dom"
 function AboutSection(){
     return(
         <>
@@ -8,7 +8,7 @@ function AboutSection(){
                     <div className="col-md-7" style={{padding: '15px'}}>
                         <div className="about-content">
                             <h3>Welcome to <span>Surplus & Prime Worldwide</span></h3>
-                            <p className="tag-line"><span>Surplus & Prime Worldwide</span> highlights the production of goods and related services, representing progress and value within a modern economy.</p>
+                            <p className="tag-line"><span>Surplus and Prime Worldwide</span> FZ.LLC is an <span>MNC</span> company with its headquarters in the United Arab Emirates and a branch office in India.</p>
                             <p>Manufacturing and trading industries play a vital role in the global economy, connecting suppliers and buyers while enabling businesses to efficiently exchange surplus equipment, materials, and industrial resources worldwide.</p>
                             <div className="quote-box">
                                 <img src="images/quote.png" alt="Awesome Image"/>
@@ -17,7 +17,7 @@ function AboutSection(){
                             </div>
                             <p>Industries, the countries they reside in, and the economies of those countries are
                                 interlinked in a complex web of interdependence.</p>
-                            <a href="#" className="view-more hvr-sweep-to-right">Learn about the services</a>
+                            <Link to="/about" className="view-more hvr-sweep-to-right">Learn about the services <i className="fa fa-arrow-right"></i></Link>
                         </div>
                     </div>
                     <div className="col-md-5">

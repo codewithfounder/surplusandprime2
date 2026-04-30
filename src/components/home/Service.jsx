@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
 const services = [
   {
     img: "images/service-1.png",
@@ -50,12 +50,12 @@ function Service() {
                         {service.title2}
                       </h3>
 
-                      <a
-                        href="#"
+                      <Link
+                        to="/shop"
                         className="more hvr-sweep-to-right"
                       >
-                        Shop Now
-                      </a>
+                        Shop Now <i className="fa fa-arrow-right"></i>
+                      </Link>
 
                     </div>
                   </div>

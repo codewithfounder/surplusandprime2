@@ -1,24 +1,47 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import BASE_URL from "../../config/api";
 
 function Header({ logo }) {
     const [menuOpen, setMenuOpen] = useState(false);
     const [activeDropdown, setActiveDropdown] = useState(null);
     const [loggedIn, setLoggedIn] = useState(false);
+    const [categories, setCategories] = useState([]);
     const navigate = useNavigate();
 
     useEffect(() => {
-        const storedUser = JSON.parse(localStorage.getItem("user"));
-        setLoggedIn(storedUser?.login || false);
+        const checkLogin = () => {
+            const uid = localStorage.getItem("uid");
+            setLoggedIn(!!uid); // true if uid exists
+        };
+
+        checkLogin();
+
+        window.addEventListener("storage", checkLogin);
+
+        return () => {
+            window.removeEventListener("storage", checkLogin);
+        };
+    }, []);
+
+    useEffect(() => {
+        fetch(`${BASE_URL}/category/get_cat`)
+            .then((res) => res.json())
+            .then((data) => {
+                if (data.status) {
+                    setCategories(data.data);
+                }
+            })
+            .catch((err) => console.error("Category API Error:", err));
     }, []);
 
     const handleLogout = () => {
-        const storedUser = JSON.parse(localStorage.getItem("user"));
-        if (storedUser) {
-            storedUser.login = false;
-            localStorage.setItem("user", JSON.stringify(storedUser));
-        }
+        localStorage.removeItem("uid"); // ✅ important
+
         setLoggedIn(false);
+
+        window.dispatchEvent(new Event("storage"));
+
         navigate("/login");
     };
 
@@ -26,10 +49,10 @@ function Header({ logo }) {
         <>
             {/* 🔷 TOPBAR */}
             <div className="topbar">
-                <div className="topbar-left">
-                    <span><i className="fa fa-map-marker-alt"></i> Location: FDR K-2058, Compass Building, Al Shohada Rd, Al Hamra Industrial Zone, Ras Al Khaimah, UAE</span>
-                    <span><i className="fa fa-envelope"></i> Email: info@surplusandprime.com</span>
-                    <span><i className="fa fa-clock"></i> Working Hours: Monday to Saturday - 9:00 AM to 5PM</span>
+                <div className="topbar-left text-center">
+                    <span><i className="fa fa-map-marker-alt"></i> FDR K-2058, Compass Bldg, Al Hamra, RAK, UAE</span>
+                    <span><i className="fa fa-envelope"></i> info@surplusandprime.com</span>
+                    <span><i className="fa fa-clock"></i> Monday to Saturday - 9:00 AM to 5PM</span>
                 </div>
             </div>
 
@@ -39,7 +62,7 @@ function Header({ logo }) {
                     <img src={logo} alt="logo" />
                 </div>
 
-                {/* 🍔 HAMBURGER */}
+                {/* HAMBURGER */}
                 <div className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
                     <i className="fa fa-bars"></i>
                 </div>
@@ -57,37 +80,60 @@ function Header({ logo }) {
                     >
                         <span>Industry ▾</span>
                         <ul className={`submenu ${activeDropdown === "category" ? "show" : ""}`}>
-                            <li><Link to="/category/1">Chemical & Petrochemicals</Link> </li>
-                            <li><Link to="/category/2">Commercial Equipment</Link></li>
-                            <li><Link to="/category/3">Computer & Peripherals</Link></li>
-                            <li><Link to="/category/4">Electrical Utilities & Downstream</Link></li>
-                            <li><Link to="/category/5">Marine</Link></li>
-                            <li><Link to="/category/6">Oil & Gas</Link></li>
-                            <li><Link to="/category/7">Solar</Link></li>
-                            <li><Link to="/category/8">Transportation/Vehicles/Mobile Assets</Link></li>
-                            <li><Link to="/category/9">Heavy Equipment</Link></li>
-                            <li><Link to="/category/10">Building Materials</Link></li>
+                            {categories.length > 0 ? (
+                                categories.map((cat) => (
+                                    <li key={cat.id}>
+                                        <Link to={`/category/${cat.id}`}>
+                                            {cat.name}
+                                        </Link>
+                                    </li>
+                                ))
+                            ) : (
+                                <li>No categories</li>
+                            )}
                         </ul>
                     </li>
                     <li><Link to="/contact">Contact Us</Link></li>
+                    <li
+                        className="dropdown"
+                        onClick={() =>
+                            setActiveDropdown(activeDropdown === "more" ? null : "more")
+                        }
+                    >
+                        <span>Accounts ▾</span>
+
+                        <ul className={`submenu ${activeDropdown === "more" ? "show" : ""}`}>
+                            <li><Link to="/register">Buyer</Link></li>
+                            <li><Link to="http://localhost/virendra/SURPLUS/admin/auth/signin">Seller</Link></li>
+
+                            {/* Example: Logout option */}
+                            {loggedIn && (
+                                <li>
+                                    <span onClick={handleLogout} style={{ cursor: "pointer" }}>
+                                        Logout
+                                    </span>
+                                </li>
+                            )}
+                        </ul>
+                    </li>
 
                     {/* Mobile Extra Links */}
                     <li className="mobile-extra">
                         {loggedIn ? (
                             <Link to="/dashboard">
-                                <button className="pickup-btn">Dashboard</button>
+                                <button className="pickup-btn"><i className="fa fa-user-shield admin-icon"></i>Login</button>
                             </Link>
                         ) : (
                             <Link to="/login">
-                                <button className="pickup-btn">Login</button>
+                                <button className="pickup-btn"><i className="fa fa-lock lock-icon"></i></button>
                             </Link>
                         )}
 
                         <div className="contact-box">
                             <i className="fa fa-phone phone-icon"></i>
                             <div>
-                                <p>Need assistance?</p>
                                 <h4>+91 9211018618</h4>
+                                <p>Need assistance?</p>
                             </div>
                         </div>
                     </li>
@@ -99,18 +145,18 @@ function Header({ logo }) {
 
                     {loggedIn ? (
                         <Link to="/dashboard">
-                                <button className="pickup-btn">Dashboard</button>
-                            </Link>
+                            <button className="pickup-btn"><i className="fa fa-user-shield admin-icon"></i></button>
+                        </Link>
                     ) : (
                         <Link to="/login">
-                            <button className="pickup-btn">Login</button>
+                            <button className="pickup-btn"><i className="fa fa-lock lock-icon"></i> Login</button>
                         </Link>
                     )}
 
                     <div className="contact-box">
                         <i className="fa fa-phone phone-icon"></i>
                         <div>
-                            <p>Need assistance?</p>
+                            <p style={{ margin: 0 }}>Need assistance?</p>
                             <h4>+91 9211018618</h4>
                         </div>
                     </div>

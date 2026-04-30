@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import BasicDetails from "../../components/auth/register/BasicDetails";
 import EmailVerification from "../../components/auth/register/EmailVerification";
@@ -9,10 +9,13 @@ import "./style.css";
 const Register = () => {
     const [step, setStep] = useState(1);
     const [errors, setErrors] = useState({});
+    const [loading, setLoading] = useState(false);
+    const [regionText, setRegionText] = useState("");
 
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
+        user_id: "",
         fullName: "",
         memberType: "Buyer",
         countryCode: "",
@@ -35,7 +38,7 @@ const Register = () => {
         website: "",
 
         categories: [],
-        region: [], // ✅ FIXED (was "")
+        region: [], // FIXED (was "")
     });
 
     const steps = [
@@ -55,20 +58,7 @@ const Register = () => {
         setErrors({ ...errors, [name]: "" });
     };
 
-    const handleCheckbox = (e) => {
-        const { value, checked } = e.target;
-        let updated = [...formData.categories];
-        if (checked) updated.push(value);
-        else updated = updated.filter((item) => item !== value);
-
-        setFormData({ ...formData, categories: updated });
-
-        if (updated.length > 0) {
-            setErrors({ ...errors, categories: "" });
-        }
-    };
-
-    // ✅ Validate current step
+    // Validate current step
     const validateStep = () => {
         let newErrors = {};
 
@@ -99,7 +89,7 @@ const Register = () => {
             newErrors.categories = "Select at least one category";
         }
 
-        // ✅ FIXED validation for array
+        //FIXED validation for array
         if (step === 5 && formData.region.length === 0) {
             newErrors.region = "Select at least one region";
         }
@@ -108,24 +98,28 @@ const Register = () => {
         return Object.keys(newErrors).length === 0;
     };
 
-    const handleSubmit = () => {
-        if (!validateStep()) return;
+    const handleVerifyOTP = async () => {
+        if (!formData.otp.trim()) {
+            setErrors({ ...errors, otp: "OTP required" });
+            return;
+        }
 
-        const userId = Date.now();
+        const res = await fetch(
+            "http://localhost/virendra/SURPLUS/website/auth/verify_otp",
+            {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    user_id: formData.user_id,
+                    otp: formData.otp,
+                }),
+            }
+        );
 
-        const userData = {
-            ...formData,
-            id: userId,
-            login: true,
-        };
+        const data = await res.json();
 
-        console.log("Final Data:", userData);
-
-        localStorage.setItem("user", JSON.stringify(userData));
-
-        alert("Account Created Successfully!");
-
-        navigate("/dashboard");
+        if (data.status) nextStep();
+        else alert(data.message);
     };
 
     // Send OTP
@@ -135,10 +129,14 @@ const Register = () => {
             return;
         }
 
-        console.log("OTP sent to:", formData.email);
         alert(`OTP sent to ${formData.email}`);
     };
 
+    useEffect(() => {
+        if (Array.isArray(formData.region)) {
+            setRegionText(formData.region.join(", "));
+        }
+    }, []);
     return (
         <div className="container1">
             <div>
@@ -178,7 +176,9 @@ const Register = () => {
                         handleChange={handleChange}
                         setFormData={setFormData}
                         errors={errors}
+                        setErrors={setErrors}
                         handleSendOTP={handleSendOTP}
+                        nextStep={nextStep}
                     />
                 )}
 
@@ -212,16 +212,12 @@ const Register = () => {
                     >
                         <label>Enter Regions (comma separated)</label>
 
-                        <input
-                            type="text"
+                        <textarea
                             placeholder="e.g. India, USA, Europe"
-                            value={
-                                Array.isArray(formData.region)
-                                    ? formData.region.join(", ")
-                                    : ""
-                            }
+                            value={regionText}
                             onChange={(e) => {
                                 const value = e.target.value;
+                                setRegionText(value);
 
                                 const regionsArray = value
                                     .split(",")
@@ -251,16 +247,132 @@ const Register = () => {
             <div className="buttons">
                 {step > 1 && <button onClick={prevStep}>Previous</button>}
 
-                {step < 5 ? (
+                {step === 2 && (
+                    <button onClick={handleVerifyOTP}>Verify OTP</button>
+                )}
+
+                {step === 3 && (
                     <button
-                        onClick={() => {
-                            if (validateStep()) nextStep();
+                        disabled={loading}
+                        onClick={async () => {
+                            if (!validateStep()) return;
+
+                            setLoading(true);
+
+                            try {
+
+                                const res = await fetch(
+                                    "http://localhost/virendra/SURPLUS/website/auth/save_contact",
+                                    {
+                                        method: "POST",
+                                        headers: { "Content-Type": "application/json" },
+                                        body: JSON.stringify({
+                                            user_id: formData.user_id,
+                                            entityType: formData.entityType,
+                                            industry: formData.industry,
+                                            address: formData.address,
+                                            city: formData.city,
+                                            state: formData.state,
+                                            country: formData.country,
+                                            zip: formData.zip,
+                                            phone: formData.phone,
+                                            ext: formData.ext,
+                                            website: formData.website,
+                                        }),
+                                    }
+                                );
+
+                                const data = await res.json();
+
+                                if (data.status) {
+                                    nextStep(); // go to step 4
+                                } else {
+                                    alert(data.message);
+                                }
+                            } catch (err) {
+                                console.error(err);
+                                alert("Something went wrong");
+                            } finally {
+                                setLoading(false);
+                            }
+                        }}
+                    >
+                        {loading ? "Saving..." : "Next"}
+                    </button>
+                )}
+
+                {step === 4 && (
+                    <button
+                        onClick={async () => {
+                            if (!formData.categories.length) {
+                                setErrors((prev) => ({
+                                    ...prev,
+                                    categories: "Please select at least one category",
+                                }));
+                                return;
+                            }
+
+                            try {
+                                const res = await fetch(
+                                    "http://localhost/virendra/SURPLUS/website/auth/save_categories",
+                                    {
+                                        method: "POST",
+                                        headers: {
+                                            "Content-Type": "application/json",
+                                        },
+                                        body: JSON.stringify({
+                                            user_id: formData.user_id,
+                                            categories: formData.categories,
+                                        }),
+                                    }
+                                );
+
+                                const data = await res.json();
+
+                                if (data.status) {
+                                    nextStep();
+                                } else {
+                                    alert(data.message);
+                                }
+                            } catch (err) {
+                                console.error(err);
+                                alert("Failed to save categories");
+                            }
                         }}
                     >
                         Next
                     </button>
-                ) : (
-                    <button onClick={handleSubmit}>Submit</button>
+                )}
+
+                {step === 5 && (
+                    <button
+                        onClick={async () => {
+                            if (!validateStep()) return;
+
+                            const res = await fetch(
+                                "http://localhost/virendra/SURPLUS/website/auth/save_regions",
+                                {
+                                    method: "POST",
+                                    headers: { "Content-Type": "application/json" },
+                                    body: JSON.stringify({
+                                        user_id: formData.user_id,
+                                        regions: formData.region,
+                                    }),
+                                }
+                            );
+
+                            const data = await res.json();
+
+                            if (data.status) {
+                                alert("Registration Completed");
+                                navigate("/thank-you", { state: { fromRegister: true } });
+                            } else {
+                                alert(data.message);
+                            }
+                        }}
+                    >
+                        Submit
+                    </button>
                 )}
             </div>
         </div>

@@ -125,7 +125,7 @@ function Footer() {
 
           <div className="left-text pull-left col-xs-12">
             <p className="text-center">© Copyright Surplus and Prime WorldWide FZ LLC.
-GREENER TOMORROW 2026. All right reserved.</p>
+<span style={{color: '#21aa47'}}>GREENER TOMORROW</span> 2026. All right reserved.</p>
           </div>
 
           {/* <div className="right-text pull-right">

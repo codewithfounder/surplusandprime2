@@ -4535,7 +4535,7 @@ footer.site-footer .bottom-footer p {
 }
 .single-service-style-four .img-box .box .content i {
   color: #fff;
-  font-size: 56px;
+  /* font-size: 56px; */
 }
 .single-service-style-four .img-box .box .content h3 {
   color: #FFFFFF;
@@ -4979,7 +4979,7 @@ footer.site-footer .bottom-footer p {
 }
 
 .about-style-three {
-  padding: 120px 0;
+  padding: 50px 0;
 }
 .about-style-three .about-img-box {
   position: relative;
@@ -5019,7 +5019,7 @@ footer.site-footer .bottom-footer p {
   margin-left: 10px;
 }
 .about-style-three .about-content {
-  padding-top: 60px;
+  /* padding-top: 60px; */
 }
 .about-style-three .about-content h3, .about-style-three .about-content p {
   margin: 0;
@@ -5566,7 +5566,7 @@ footer.site-footer .bottom-footer p {
 }
 .sidebar .single-sidebar.category-widget ul.category-list li a {
   color: #555555;
-  font-size: 15px;
+  font-size: 11px;
   position: relative;
   display: block;
   -webkit-transition: all .4s ease;

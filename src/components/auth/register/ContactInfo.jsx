@@ -67,7 +67,7 @@ const ContactInfo = ({ formData, setFormData, handleChange, errors }) => {
             value={formData.industry}
             onChange={handleChange}
             className={errors.industry ? "error" : ""}
-            style={{ padding: "10px 0", width: "100%" }}
+            style={{width: "100%" }}
           >
             <option value="">Select Industry</option>
             <option value="Chemical-Petrochemicals">
@@ -184,7 +184,7 @@ const ContactInfo = ({ formData, setFormData, handleChange, errors }) => {
           >
             <option value="">Select State</option>
             {states.map((state) => (
-              <option key={state.isoCode} value={state.isoCode}>
+              <option key={state.isoCode} value={state.name}>
                 {state.name}
               </option>
             ))}

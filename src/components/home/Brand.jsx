@@ -8,7 +8,7 @@ const brands = [
   "brands-icon-photodune",
   "brands-icon-themeforest",
   "brands-icon-videohive",
-  "brands-icon-audiojungle"
+  "brands-icon-audiojungle",
 ];
 
 function Brand() {

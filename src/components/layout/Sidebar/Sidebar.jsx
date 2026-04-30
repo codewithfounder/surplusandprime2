@@ -1,9 +1,12 @@
 import "./style.css"
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import BASE_URL from "../../../config/api";
 
 function Sidebar({ setSearchTerm }) {
   const [openCategory, setOpenCategory] = useState(null);
+  const [recentProducts, setRecentProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
@@ -12,6 +15,37 @@ function Sidebar({ setSearchTerm }) {
   const toggleCategory = (category) => {
     setOpenCategory(openCategory === category ? null : category);
   };
+
+  useEffect(() => {
+    fetch(`${BASE_URL}/product/all`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status) {
+          const formatted = data.data.map((item) => ({
+            id: item.id,
+            title: item.Title || "Untitled Product",
+          }));
+
+          // Get latest 2 (assuming latest = last items)
+          const latestTwo = formatted.slice(-2).reverse();
+
+          setRecentProducts(latestTwo);
+        }
+      })
+      .catch((err) => console.error("Sidebar API Error:", err));
+  }, []);
+
+  useEffect(() => {
+    fetch(`${BASE_URL}/category/get_cat`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status) {
+          setCategories(data.data);
+        }
+      })
+      .catch((err) => console.error("Category API Error:", err));
+  }, []);
+
   return (
     <div className="sidebar sidebar-right">
 
@@ -27,12 +61,21 @@ function Sidebar({ setSearchTerm }) {
           <h3>Recent <span style={{ fontSize: '1.7rem', color: '#21aa47' }}>Product</span></h3>
         </div>
         <div className="recent-post-list">
-          <div className="single-recent-post">
-            <Link to="/product-details/13"><h3>Business structured are changed by appilo team</h3></Link>
-          </div>
-          <div className="single-recent-post">
-            <Link to="/product-details/14"><h3>There are many variations of passages of Lorem Ipsum</h3></Link>
-          </div>
+          {recentProducts.length > 0 ? (
+            recentProducts.map((product) => (
+              <div className="single-recent-post" key={product.id}>
+                <Link to={`/product-details/${product.id}`}>
+                  <h3>
+                    {product.title.length > 50
+                      ? product.title.substring(0, 50) + "..."
+                      : product.title}
+                  </h3>
+                </Link>
+              </div>
+            ))
+          ) : (
+            <p>No recent products</p>
+          )}
         </div>
       </div>
 
@@ -40,78 +83,39 @@ function Sidebar({ setSearchTerm }) {
         <div className="title">
           <h3>Categories</h3>
         </div>
-        <ul className="category-list" style={{ paddingLeft: '1rem' }}>
-          <li>
-            <a className="clearfix"
-              onClick={() => toggleCategory("chemical-petrochemicals")}
-              style={{ cursor: "pointer" }}>
-              Chemical & Petrochemicals <span className="count">(3)</span>
-            </a>
+        <ul className="category-list" style={{ paddingLeft: "1rem" }}>
+          {categories.length > 0 ? (
+            categories.map((cat) => (
+              <li key={cat.id}>
+                <a
+                  className="clearfix"
+                  style={{ cursor: "pointer" }}
+                  onClick={() => toggleCategory(cat.id)}
+                >
+                  {cat.name}
+                  <span className="count">({cat.subcategories?.length || 0})</span>
+                </a>
 
-            {openCategory === "chemical-petrochemicals" && (
-              <ul className="subcategory-list">
-                <li><a href="#">Men Fashion</a></li>
-                <li><a href="#">Women Fashion</a></li>
-                <li><a href="#">Kids Fashion</a></li>
-              </ul>
-            )}
-          </li>
-          <li>
-            <a className="clearfix"
-             onClick={() => toggleCategory("commercial-equipment")}
-              style={{ cursor: "pointer" }}>
-              Commercial Equipment <span className="count">(4)</span>
-            </a>
-            {openCategory === "commercial-equipment" && (
-              <ul className="subcategory-list">
-                <li><a href="#">Startup</a></li>
-                <li><a href="#">Marketing</a></li>
-                <li><a href="#">Finance</a></li>
-              </ul>
-            )}
-          </li>
-          <li>
-            <a className="clearfix"
-             onClick={() => toggleCategory("computer-peripherals")}
-              style={{ cursor: "pointer" }}>
-              Computer & Peripherals <span className="count">(3)</span>
-            </a>
-            {openCategory === "computer-peripherals" && (
-              <ul className="subcategory-list">
-                <li><a href="#">Strategy</a></li>
-                <li><a href="#">Operations</a></li>
-                <li><a href="#">IT Consulting</a></li>
-              </ul>
-            )}
-          </li>
-          <li>
-            <a className="clearfix"
-             onClick={() => toggleCategory("electrical-utilities")}
-              style={{ cursor: "pointer" }}>
-              Electrical Utilities <span className="count">(3)</span>
-            </a>
-            {openCategory === "electrical-utilities" && (
-              <ul className="subcategory-list">
-                <li><a href="#">Strategy</a></li>
-                <li><a href="#">Operations</a></li>
-                <li><a href="#">IT Consulting</a></li>
-              </ul>
-            )}
-          </li>
-            <li>
-            <a className="clearfix"
-             onClick={() => toggleCategory("marine")}
-              style={{ cursor: "pointer" }}>
-              Marine <span className="count">(3)</span>
-            </a>
-            {openCategory === "marine" && (
-              <ul className="subcategory-list">
-                <li><a href="#">Strategy</a></li>
-                <li><a href="#">Operations</a></li>
-                <li><a href="#">IT Consulting</a></li>
-              </ul>
-            )}
-          </li>
+                {openCategory === cat.id && (
+                  <ul className="subcategory-list">
+                    {cat.subcategories && cat.subcategories.length > 0 ? (
+                      cat.subcategories.map((sub) => (
+                        <li key={sub.id}>
+                          <Link to={`/products/${sub.id}`}>
+                            {sub.name}
+                          </Link>
+                        </li>
+                      ))
+                    ) : (
+                      <li>No subcategories</li>
+                    )}
+                  </ul>
+                )}
+              </li>
+            ))
+          ) : (
+            <li>No categories found</li>
+          )}
         </ul>
       </div>
 

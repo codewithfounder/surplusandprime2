@@ -18,6 +18,16 @@
     user-select: none;
 }
 
+textarea {
+    width: 50%;
+    min-height: 120px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    resize: vertical;
+    font-size: 14px;
+}
+
 .login-wrapper {
     height: 100vh;
     display: flex;
@@ -206,6 +216,8 @@ button {
 /* email verification */
 .otp-container {
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
   gap: 10px;
   margin: 20px 0;

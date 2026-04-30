@@ -51,7 +51,6 @@ const BasicDetails = ({
     // Enable mobile input when country is selected
     if (selectedCode) {
       setIsMobileDisabled(false);
-      // Focus on mobile input after country selection
       setTimeout(() => {
         if (mobileInputRef.current) {
           mobileInputRef.current.focus();
@@ -279,7 +278,7 @@ const BasicDetails = ({
   };
 
   // Form submit
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Validate all fields
@@ -327,7 +326,35 @@ const BasicDetails = ({
       return;
     }
 
-    handleSubmitFinal(); // proceed to next step
+    try{
+       const res = await fetch(
+        "http://localhost/virendra/SURPLUS/website/auth/register_step1",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
+
+      const data = await res.json();
+
+      if (data.status) {
+        setFormData((prev) => ({
+          ...prev,
+          user_id: data.user_id,
+        }));
+
+        handleSubmitFinal(); // move to step 2
+      } else {
+        alert(data.message);
+      }
+    }catch(err){
+      console.error(err);
+    }
+
+    // handleSubmitFinal(); // proceed to next step
   };
 
   return (
@@ -367,7 +394,7 @@ const BasicDetails = ({
               onChange={handleChange}
             >
               <option value="">Select your member type</option>
-              <option value="Only Buyer">Only Buyer</option>
+              <option value="Only Buyer">Buyer</option>
             </select>
           </div>
         </div>
@@ -515,7 +542,12 @@ const BasicDetails = ({
                 ✓ Passwords match
               </p>
             )}
+
           </div>
+        </div>
+            {/* Submit */}
+        <div style={{ marginTop: "20px" }}>
+          <button type="submit" style={{width: '100%'}}>Next</button>
         </div>
 
         <p className="terms">

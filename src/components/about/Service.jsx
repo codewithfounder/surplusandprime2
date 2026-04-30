@@ -2,6 +2,7 @@ import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { Link } from "react-router-dom";
 
 function Service() {
   const services = [
@@ -84,9 +85,10 @@ function Service() {
                         <span>{service.title1}</span> <br />
                         {service.title2}
                       </h3>
-                      <a href="#" className="more hvr-sweep-to-right">
+                      <Link to="/shop" className="more hvr-sweep-to-right">
                         Shop Now
-                      </a>
+                        <i className="fa fa-arrow-right"></i>
+                      </Link>
                     </div>
                   </div>
                 </div>

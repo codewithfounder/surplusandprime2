@@ -23,19 +23,36 @@ export default function CategorySlider() {
   }, []);
 
   const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 2500,
-    lazyLoad: "ondemand",
-    responsive: [
-      { breakpoint: 992, settings: { slidesToShow: 2 } },
-      { breakpoint: 576, settings: { slidesToShow: 1, arrows: false } }
-    ]
-  };
+  dots: true,
+  infinite: true,
+  speed: 500,
+  slidesToShow: 1, // 👈 default mobile
+  slidesToScroll: 1,
+  autoplay: true,
+  autoplaySpeed: 2500,
+  lazyLoad: "ondemand",
+  responsive: [
+    {
+      breakpoint: 576,
+      settings: {
+        slidesToShow: 1,
+        arrows: false
+      }
+    },
+    {
+      breakpoint: 992,
+      settings: {
+        slidesToShow: 2
+      }
+    },
+    {
+      breakpoint: 1200,
+      settings: {
+        slidesToShow: 3
+      }
+    }
+  ]
+};
 
   return (
     <section className="category-slider">
@@ -59,7 +76,7 @@ export default function CategorySlider() {
 
                 <div className="overlay-hover">
                   <h3>{item.Title}</h3>
-                  <p dangerouslySetInnerHTML={{ __html: item.Short_description }}/>
+                  {/* <p dangerouslySetInnerHTML={{ __html: item.Short_description }}/> */}
                   <Link to={`/category/${item.id}`} className="btn btn-light">
                     View More
                   </Link>

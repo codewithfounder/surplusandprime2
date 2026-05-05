@@ -5459,6 +5459,31 @@ footer.site-footer .bottom-footer p {
   margin-bottom: 30px;
 }
 
+/* topbar */
+.topbar-contnt{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+@media (max-width: 854px) {
+  .topbar-contnt {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* aligns items from the top */
+    align-items: flex-start;     /* aligns items to the left */
+  }
+  .topbar-leftcontent{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* aligns items from the top */
+    align-items: flex-start;
+  }
+  .topbar-left span{
+    margin-right: 0 !important;
+  }
+}
+
 /************************** 
 * 27. sidebar styles 
 ***************************/

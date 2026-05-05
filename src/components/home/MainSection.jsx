@@ -7,7 +7,7 @@ const slides = [
     align: "text-center",
     title: "We will provide the best",
     highlight: "Products",
-    desc: "",
+    desc: "We are the best guarenteed company to serve you. We are dedicated to help you any time.",
     active: true
   },
   {

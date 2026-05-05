@@ -255,7 +255,7 @@ function Details({ productId }) {
                 }
 
                 .label {
-                    width: 200px;
+                    width: 150px;
                     font-weight: 600;
                     color: #000;
                     display: flex;

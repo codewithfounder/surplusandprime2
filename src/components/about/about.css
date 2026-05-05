@@ -87,8 +87,7 @@ background:#27ae60;
     display: none !important;
 }
 .swiper-horizontal > .swiper-pagination-bullets, .swiper-pagination-horizontal.swiper-pagination-bullets{
-        .swiper-pagination-bullet{
-
-            display: none !important;
-        }
+    .swiper-pagination-bullet{
+        display: none !important;
+    }
 }

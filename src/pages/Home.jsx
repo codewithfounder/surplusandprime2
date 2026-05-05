@@ -10,6 +10,7 @@ import Products from "../components/home/Products"
 import Service from "../components/home/Service"
 import Team from "../components/home/Team"
 import Navbar from "../components/Navbar"
+import Gallery from "../components/home/Gallery"
 
 function Home() {
 
@@ -18,7 +19,8 @@ function Home() {
             <div className="page-wrapper" style={{marginBottom: 0}}>
                 <Navbar logo="images/surplus.png"/>
                 <MainSection/>
-                <CategorySlider/>
+                <Gallery/>
+                {/* <CategorySlider/> */}
                 <AboutSection/>
                 <Service/>
                 <Products/>

@@ -49,10 +49,14 @@ function Header({ logo }) {
         <>
             {/* 🔷 TOPBAR */}
             <div className="topbar">
-                <div className="topbar-left text-center">
-                    <span><i className="fa fa-map-marker-alt"></i> FDR K-2058, Compass Bldg, Al Hamra, RAK, UAE</span>
-                    <span><i className="fa fa-envelope"></i> info@surplusandprime.com</span>
-                    <span><i className="fa fa-clock"></i> Monday to Saturday - 9:00 AM to 5PM</span>
+                <div className="topbar-left text-center topbar-contnt">
+                    <div>
+                        <span><i className="fa fa-map-marker-alt"></i> FDR K-2058, Compass Bldg, Al Hamra, RAK, UAE</span>
+                    </div>
+                    <div className="topbar-leftcontent">
+                        <span><i className="fa fa-envelope"></i> info@surplusandprime.com</span>
+                        <span><i className="fa fa-clock"></i> Monday to Saturday - 9:00 AM to 5PM</span>
+                    </div>
                 </div>
             </div>
 

@@ -76,7 +76,7 @@ export default function CategorySlider() {
 
                 <div className="overlay-hover">
                   <h3>{item.Title}</h3>
-                  {/* <p dangerouslySetInnerHTML={{ __html: item.Short_description }}/> */}
+                  <p dangerouslySetInnerHTML={{ __html: item.Short_description }}/>
                   <Link to={`/category/${item.id}`} className="btn btn-light">
                     View More
                   </Link>

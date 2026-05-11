@@ -1853,7 +1853,6 @@ footer.site-footer .bottom-footer p {
   font-style: italic;
   background: -webkit-gradient(linear, left top, right top, from(#f80503), to(#ff7d09));
   background: linear-gradient(to right, #f80503 0%, #ff7d09 100%);
-  -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 .award-winning .title h3:after {
@@ -5591,7 +5590,7 @@ footer.site-footer .bottom-footer p {
 }
 .sidebar .single-sidebar.category-widget ul.category-list li a {
   color: #555555;
-  font-size: 11px;
+  font-size: 12px;
   position: relative;
   display: block;
   -webkit-transition: all .4s ease;

@@ -2,13 +2,20 @@ import React from "react";
 import Slider from "react-slick";
 
 const brands = [
-  "brands-icon-codecanyon",
-  "brands-icon-envato",
-  "brands-icon-graphicriver",
-  "brands-icon-photodune",
-  "brands-icon-themeforest",
-  "brands-icon-videohive",
-  "brands-icon-audiojungle",
+  "/images/brand/brand1.png",
+  "/images/brand/brand2.png",
+  "/images/brand/brand3.png",
+  "/images/brand/brand4.png",
+  "/images/brand/brand1.png",
+  "/images/brand/brand2.png",
+  "/images/brand/brand3.png"
+  // "brands-icon-codecanyon",
+  // "brands-icon-envato",
+  // "brands-icon-graphicriver",
+  // "brands-icon-photodune",
+  // "brands-icon-themeforest",
+  // "brands-icon-videohive",
+  // "brands-icon-audiojungle",
 ];
 
 function Brand() {
@@ -32,7 +39,7 @@ function Brand() {
         <Slider {...settings}>
           {brands.map((brand, index) => (
             <div className="item" key={index}>
-              <i className={brand}></i>
+              <img src={brand} className={brand} style={{width: '15rem'}}/>
             </div>
           ))}
         </Slider>

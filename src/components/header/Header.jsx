@@ -136,7 +136,7 @@ function Header({ logo }) {
                         <div className="contact-box">
                             <i className="fa fa-phone phone-icon"></i>
                             <div>
-                                <h4>+91 9211018618</h4>
+                                <h4 className="contact-tel">+91 9211018618</h4>
                                 <p>Need assistance?</p>
                             </div>
                         </div>
@@ -161,7 +161,7 @@ function Header({ logo }) {
                         <i className="fa fa-phone phone-icon"></i>
                         <div>
                             <p style={{ margin: 0 }}>Need assistance?</p>
-                            <h4>+91 9211018618</h4>
+                            <h4 style={{margin:0}}>+91 9211018618</h4>
                         </div>
                     </div>
                 </div>

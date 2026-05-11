@@ -54,7 +54,7 @@ function Service() {
                         to="/shop"
                         className="more hvr-sweep-to-right"
                       >
-                        Shop Now9 <i className="fa fa-arrow-right"></i>
+                        Shop Now <i className="fa fa-arrow-right"></i>
                       </Link>
 
                     </div>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import BASE_URL, {IMG_URL} from "../../config/api";
+import BASE_URL, { IMG_URL } from "../../config/api";
 
 function Details({ productId }) {
 
@@ -203,39 +203,64 @@ function Details({ productId }) {
                 </div>
 
                 {/* SHORT DESCRIPTION */}
-                <div className="row mt-5">
-                    <div className="col-12" style={{ padding: '2rem' }}>
-                        <h3>Short Description</h3>
-
-                        <div
-                            dangerouslySetInnerHTML={{
-                                __html: product.Short_description
-                            }}
-                        />
-                    </div>
-                </div>
-
-                {/* FULL DESCRIPTION WITHOUT TABLE */}
-                <div className="row mt-4">
-                    <div className="col-12" style={{ padding: '2rem' }}>
-                        <h3>Product Details</h3>
-
-                        {/* RIGHT SIDE TABLE */}
-                        {tableHTML ? (
-                            <div className="mt-4">
-                                <h5>Specifications</h5>
-
+                {product.Short_description &&
+                    product.Short_description !== "0" &&
+                    product.Short_description !== "<p>.</p>" && (
+                        <div className="row mt-5">
+                            <div className="col-12" style={{ padding: '2rem' }}>
                                 <div
-                                    dangerouslySetInnerHTML={{ __html: tableHTML }}
+                                    dangerouslySetInnerHTML={{
+                                        __html: product.Short_description
+                                    }}
                                 />
                             </div>
-                        ):(
-                            <div
-                                dangerouslySetInnerHTML={{ __html: descriptionHTML }}
-                            />
-                        )}
-                    </div>
-                </div>
+                        </div>
+                    )}
+
+                {/* PDF DOWNLOAD */}
+                {product.Pdf_upload &&
+                    product.Pdf_upload !== "0" && (
+                        <div className="row mt-3">
+                            <div className="col-12" style={{ padding: '0 2rem' }}>
+                                <a
+                                    href={`${BASE_URL}/uploads/pdf/${product.Pdf_upload}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="btn btn-primary"
+                                >
+                                    View PDF
+                                </a>
+                            </div>
+                        </div>
+                    )}
+
+                {/* FULL DESCRIPTION WITHOUT TABLE */}
+                {((tableHTML && tableHTML !== "0") ||
+                    (descriptionHTML && descriptionHTML !== "0")) && (
+                        <div className="row mt-4">
+                            <div className="col-12" style={{ padding: '2rem' }}>
+
+                                {/* TABLE */}
+                                {tableHTML && tableHTML !== "0" ? (
+                                    <div className="mt-4">
+                                        <h5>Specifications</h5>
+
+                                        <div
+                                            dangerouslySetInnerHTML={{ __html: tableHTML }}
+                                        />
+                                    </div>
+                                ) : (
+                                    descriptionHTML &&
+                                    descriptionHTML !== "0" && (
+                                        <div
+                                            dangerouslySetInnerHTML={{ __html: descriptionHTML }}
+                                        />
+                                    )
+                                )}
+
+                            </div>
+                        </div>
+                    )}
 
             </div>
 

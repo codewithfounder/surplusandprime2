@@ -56,7 +56,7 @@ function Sidebar({ setSearchTerm }) {
         </form>
       </div>
 
-      <div className="single-sidebar recent-post-widget">
+      <div className="single-sidebar recent-post-widget" style={{width: '27rem'}}>
         <div className="title">
           <h3>Recent <span style={{ fontSize: '1.7rem', color: '#21aa47' }}>Product</span></h3>
         </div>
@@ -79,7 +79,7 @@ function Sidebar({ setSearchTerm }) {
         </div>
       </div>
 
-      <div className="single-sidebar category-widget">
+      <div className="single-sidebar category-widget" style={{width: '27rem'}}>
         <div className="title">
           <h3>Categories</h3>
         </div>

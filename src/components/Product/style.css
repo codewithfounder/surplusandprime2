@@ -17,8 +17,8 @@
    Product Image
 ============================ */
 .product-img {
-  width: 100%;
-  height: 140px; /* adjust as needed */
+  width: 17rem !important;
+  height: 10rem !important; /* adjust as needed */
   object-fit: cover;
   border-radius: 7px;
 }

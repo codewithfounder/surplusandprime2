@@ -27,7 +27,7 @@ export default function Gallery() {
       .then((res) => res.json())
       .then((data) => {
         if (data.status) {
-          setCategories(data.data);
+          setCategories(data.data.slice(0, 10));
         }
       })
       .catch((err) => console.error("API Error:", err));
@@ -59,7 +59,7 @@ export default function Gallery() {
                 </div>
 
                 <div className="hover-overlay">
-                  <h3 style={{textAlign: "center"}}>{item.Title}</h3>
+                  <h3 style={{ textAlign: "center" }}>{item.Title}</h3>
                   <p style={{ color: "#21aa47", padding: "10px", textAlign: "center" }}>
                     {getCategoryText(item.Title)}
                   </p>

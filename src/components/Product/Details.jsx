@@ -40,11 +40,7 @@ function Details({ productId }) {
                 if (data.status) {
 
                     // Latest 5 products
-                    const latest = data.data
-                        .slice()
-                        .reverse()
-                        .slice(0, 5);
-
+                    const latest = data.data.slice(0, 5);
                     setLatestProducts(latest);
                 }
 

@@ -14,6 +14,40 @@ function Pagination({ totalPages, currentPage, setCurrentPage }) {
     }
   };
 
+  // Generate pagination numbers with dots
+  const getPagination = () => {
+    const pages = [];
+
+    // Always show first page
+    pages.push(1);
+
+    // Left dots
+    if (currentPage > 3) {
+      pages.push("...");
+    }
+
+    // Middle pages
+    for (
+      let i = Math.max(2, currentPage - 1);
+      i <= Math.min(totalPages - 1, currentPage + 1);
+      i++
+    ) {
+      pages.push(i);
+    }
+
+    // Right dots
+    if (currentPage < totalPages - 2) {
+      pages.push("...");
+    }
+
+    // Always show last page
+    if (totalPages > 1) {
+      pages.push(totalPages);
+    }
+
+    return pages;
+  };
+
   return (
     <nav className="custom-pagination">
       <ul>
@@ -23,15 +57,19 @@ function Pagination({ totalPages, currentPage, setCurrentPage }) {
           <button onClick={handlePrev}>‹</button>
         </li>
 
-        {/* Page Numbers */}
-        {Array.from({ length: totalPages }, (_, index) => (
+        {/* Dynamic Pagination */}
+        {getPagination().map((item, index) => (
           <li key={index}>
-            <button
-              className={currentPage === index + 1 ? "active" : ""}
-              onClick={() => setCurrentPage(index + 1)}
-            >
-              {index + 1}
-            </button>
+            {item === "..." ? (
+              <span className="dots">...</span>
+            ) : (
+              <button
+                className={currentPage === item ? "active" : ""}
+                onClick={() => setCurrentPage(item)}
+              >
+                {item}
+              </button>
+            )}
           </li>
         ))}
 

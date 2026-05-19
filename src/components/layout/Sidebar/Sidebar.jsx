@@ -103,7 +103,7 @@ function Sidebar({ setSearchTerm }) {
                         <li key={sub.id}>
                           <Link
                             to={`/products/${sub.id}`}
-                            className="clearfi"
+                            className="clearfi" style={{ color: "green" }}
                           >
                             {sub.name}
 
